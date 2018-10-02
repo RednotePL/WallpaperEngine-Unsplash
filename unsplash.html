@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0 0 0 0;
+				background-color: #000000;
+			}
+			
+			#a {
+				width: 100vw;
+				height: 100vh;
+				position: fixed;
+				background-image: url('https://source.unsplash.com/random/2560x1080/?wallpaper');
+			}
+			
+			#b {
+				width: 100vw;
+				height: 100vh;
+				position: fixed;
+			}
+		</style>
+	</head>
+	<body>
+	<div id="a" style="display: none;"></div>
+	<div id="b" style="display: none;"></div>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	
+		<script>
+			var lastTransition = 'a';
+			const timeBetweenChanges = 15;
+			
+			$('#b').fadeOut(2000, function(){$('#b').css('background-image', `url('https://source.unsplash.com/random/2560x1080/?wallpaper?` + new Date().getTime()+`')`);});
+			$('#a').fadeOut();
+			$('#a').fadeIn(2000);
+			
+			function changeWallpaper(){
+			//	location.reload(true);
+				if(lastTransition == 'a'){ transitionToB(); }
+				else if(lastTransition == 'b'){ transitionToA(); }
+			}
+			
+			function transitionToA(){
+				$('#b').fadeOut(2000, function(){$('#b').css('background-image', `url('https://source.unsplash.com/random/2560x1080/?wallpaper?` + new Date().getTime()+`')`);});
+				$('#a').fadeIn(2000, function(){ lastTransition = 'a'; });
+			}
+			
+			function transitionToB(){			
+				$('#a').fadeOut(2000, function(){$('#a').css('background-image', `url('https://source.unsplash.com/random/2560x1080/?wallpaper?` + new Date().getTime()+`')`);});
+				$('#b').fadeIn(2000, function(){ lastTransition = 'b'; });
+				
+			}
+			
+			setInterval(changeWallpaper, timeBetweenChanges * 1000);
+		</script>
+	</body>
+</html>
